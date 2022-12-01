@@ -32,3 +32,4 @@ This project was built using these tools:
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/NikGor/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/NikGor/python-project-50/actions)
+[![CI](https://github.com/NikGor/python-project-50/actions/workflows/main.yml/badge.svg)](https://github.com/NikGor/python-project-50/actions/workflows/main.yml)
