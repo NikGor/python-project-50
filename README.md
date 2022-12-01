@@ -33,3 +33,5 @@ This project was built using these tools:
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/NikGor/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/NikGor/python-project-50/actions)
 [![Github Actions Status](https://github.com/NikGor/python-project-50/workflows/main/badge.svg)](https://github.com/NikGor/python-project-50/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ea0a78c5e95e083ec768/maintainability)](https://codeclimate.com/github/NikGor/python-project-50/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ea0a78c5e95e083ec768/test_coverage)](https://codeclimate.com/github/NikGor/python-project-50/test_coverage)

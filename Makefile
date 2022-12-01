@@ -13,9 +13,6 @@ test-coverage:
 lint:
 	poetry run flake8 gendiff
 
-selfcheck:
-	poetry check
-
 check:
 	selfcheck test lint
 
@@ -25,5 +22,5 @@ build:
 draw:
 	poetry run draw
 
-
-.PHONY: install test lint selfcheck check build
+gendiff:
+	poetry run gendiff file1.json file2.json
