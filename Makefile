@@ -21,6 +21,3 @@ build:
 
 draw:
 	poetry run draw
-
-gendiff:
-	poetry run gendiff file1.json file2.json

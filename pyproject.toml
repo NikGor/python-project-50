@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Nikolai Gordienko <nicolas.gordienko@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "gendiff" }]
+packages = [{ include = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -16,4 +16,4 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.poetry.scripts]
-gendiff = "gendiff.scripts.diff:main"
+gendiff = "src.scripts.diff:main"
