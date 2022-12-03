@@ -1,7 +1,7 @@
 import pytest
 from src.gendiff import generate_diff
 from src.tools import get_file_extension, load_file, get_file_content
-from src.output import diff_to_dict, stylish
+from src.output import diff_to_dict, stylish, diff_to_plain
 
 
 @pytest.fixture
@@ -36,6 +36,22 @@ def nested_yaml_fixture():
     return dict1, dict2, result
 
 
+@pytest.fixture
+def plain_output_fixture():
+    dict1 = get_file_content('tests/fixtures/file1.json')
+    dict2 = get_file_content('tests/fixtures/file2.json')
+    result = load_file('tests/fixtures/plain_result.txt')
+    return dict1, dict2, result
+
+
+@pytest.fixture
+def plain_output_nested_fixture():
+    dict1 = get_file_content('tests/fixtures/nested1.json')
+    dict2 = get_file_content('tests/fixtures/nested2.json')
+    result = load_file('tests/fixtures/plain_nested_result.txt')
+    return dict1, dict2, result
+
+
 def test_json(json_fixture):
     dict1, dict2, result = json_fixture
     diff = generate_diff(dict1, dict2)
@@ -48,10 +64,22 @@ def test_yaml(yaml_fixture):
     assert stylish(diff_to_dict(diff)) == result
 
 
-def test_tree(nested_json_fixture):
+def test_nested(nested_json_fixture):
     dict1, dict2, result = nested_json_fixture
     diff = generate_diff(dict1, dict2)
     assert stylish(diff_to_dict(diff)) == result
+
+
+def test_plain_output(plain_output_fixture):
+    dict1, dict2, result = plain_output_fixture
+    diff = diff_to_plain(generate_diff(dict1, dict2))
+    assert diff == result
+
+
+def test_plain_output_nested(plain_output_nested_fixture):
+    dict1, dict2, result = plain_output_nested_fixture
+    diff = diff_to_plain(generate_diff(dict1, dict2))
+    assert diff == result
 
 
 def test_get_file_extension():
@@ -65,3 +93,4 @@ def test_load_file():
 def test_get_file_content():
     assert get_file_content('tests/fixtures/test.json') == {'Hello': 'World'}
     assert get_file_content('tests/fixtures/test.yaml') == {'Hello': 'World'}
+
