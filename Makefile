@@ -8,7 +8,7 @@ test:
 	poetry run pytest
 
 test-coverage:
-	poetry run pytest --cov=hexlet_python_package --cov-report xml
+	poetry run pytest --cov=src --cov-report=term-missing
 
 lint:
 	poetry run flake8 gendiff
