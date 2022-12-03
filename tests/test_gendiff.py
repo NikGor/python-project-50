@@ -1,11 +1,11 @@
 import pytest
 from src.gendiff import generate_diff
 from src.tools import get_file_extension, load_file, get_file_content
-from src.output import diff_to_str
+from src.output import diff_to_dict, stylish
 
 
 @pytest.fixture
-def get_json():
+def json_fixture():
     dict1 = get_file_content('tests/fixtures/file1.json')
     dict2 = get_file_content('tests/fixtures/file2.json')
     result = load_file('tests/fixtures/result.txt')
@@ -13,7 +13,7 @@ def get_json():
 
 
 @pytest.fixture
-def get_yaml():
+def yaml_fixture():
     dict1 = get_file_content('tests/fixtures/file1.yml')
     dict2 = get_file_content('tests/fixtures/file2.yml')
     result = load_file('tests/fixtures/result.txt')
@@ -21,29 +21,37 @@ def get_yaml():
 
 
 @pytest.fixture
-def get_tree():
-    dict1 = get_file_content('tests/fixtures/tree1.json')
-    dict2 = get_file_content('tests/fixtures/tree2.json')
-    result = load_file('tests/fixtures/tree_diff.txt')
+def nested_json_fixture():
+    dict1 = get_file_content('tests/fixtures/nested1.json')
+    dict2 = get_file_content('tests/fixtures/nested2.json')
+    result = load_file('tests/fixtures/nested_result')
     return dict1, dict2, result
 
 
-# def test_tree(get_tree):
-#     dict1, dict2, result = get_tree
-#     diff = generate_diff(dict1, dict2)
-#     assert diff_to_str(diff) == result
+@pytest.fixture
+def nested_yaml_fixture():
+    dict1 = get_file_content('tests/fixtures/nested1.yaml')
+    dict2 = get_file_content('tests/fixtures/nested2.yml')
+    result = load_file('tests/fixtures/nested_result')
+    return dict1, dict2, result
 
 
-def test_json(get_json):
-    dict1, dict2, result = get_json
+def test_json(json_fixture):
+    dict1, dict2, result = json_fixture
     diff = generate_diff(dict1, dict2)
-    assert diff_to_str(diff) == result
+    assert stylish(diff_to_dict(diff)) == result
 
 
-def test_yaml(get_yaml):
-    dict1, dict2, result = get_yaml
+def test_yaml(yaml_fixture):
+    dict1, dict2, result = yaml_fixture
     diff = generate_diff(dict1, dict2)
-    assert diff_to_str(diff) == result
+    assert stylish(diff_to_dict(diff)) == result
+
+
+def test_tree(nested_json_fixture):
+    dict1, dict2, result = nested_json_fixture
+    diff = generate_diff(dict1, dict2)
+    assert stylish(diff_to_dict(diff)) == result
 
 
 def test_get_file_extension():

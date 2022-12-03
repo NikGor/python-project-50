@@ -1,12 +1,27 @@
-def diff_to_str(diff):
-    result = ''
+import json
+
+
+def diff_to_dict(diff):  # convert diff to dict with '+' and '-' signs
+    result = {}
     for key, value in sorted(diff.items()):
-        if value[0] == value[1]:
-            result += f'  {key}: {value[0]}\n'
+        if isinstance(value[0], dict) and isinstance(value[1], dict):
+            result[key] = diff_to_dict(value[0])
         elif value[0] is None:
-            result += f'+ {key}: {value[1]}\n'
+            result_key = f'+ {key}'
+            result[result_key] = value[1]
         elif value[1] is None:
-            result += f'- {key}: {value[0]}\n'
+            result_key = f'- {key}'
+            result[result_key] = value[0]
+        elif value[0] == value[1]:
+            result_key = f'  {key}'
+            result[result_key] = value[0]
         else:
-            result += f'- {key}: {value[0]}\n+ {key}: {value[1]}\n'
-    return result[:-1]
+            result_key = f'- {key}'
+            result[result_key] = value[0]
+            result_key = f'+ {key}'
+            result[result_key] = value[1]
+    return result
+
+
+def stylish(dict_to_print):  # print any dict in stylish format
+    return json.dumps(dict_to_print, indent=4).replace('"', '').replace("'", '')

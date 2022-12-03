@@ -8,7 +8,7 @@ Working with JSON and YAML.
 **help:**
 
 ```bash
-$ gendiff -h | --help
+$ gendiff -h
 ```
 
 **Running the script with default settings:**
@@ -19,7 +19,11 @@ $ gendiff <file_path1> <file_path2>
 
 ## DEMO
 
-[![asciicast](https://asciinema.org/a/54wfk0dJMITm5UNKd7uFyS65t.svg)](https://asciinema.org/a/54wfk0dJMITm5UNKd7uFyS65t)
+Comparison of two files in the JSON format:
+[![asciicast](https://asciinema.org/a/ejkADXLd9g2msAOn69mFGF4QA.svg)](https://asciinema.org/a/ejkADXLd9g2msAOn69mFGF4QA)
+
+Comparison of two nested files in the YAML format:
+[![asciicast](https://asciinema.org/a/GPsU3IE88CcxFpnzOwH9sSgqN.svg)](https://asciinema.org/a/GPsU3IE88CcxFpnzOwH9sSgqN)
 
 ### Links
 
