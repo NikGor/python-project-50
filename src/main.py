@@ -1,7 +1,7 @@
 from src.cli import parse_args
 from src.gendiff import generate_diff
 from src.tools import get_file_content
-from src.output import diff_to_dict, stylish, diff_to_plain, diff_to_json
+from src.output import stylish, diff_to_plain, diff_to_json
 
 
 def gen_diff():

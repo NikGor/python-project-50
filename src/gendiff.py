@@ -3,6 +3,8 @@
 # if item in the dictionary is a dictionary, then I call the function recursively
 # the result is only for internal use, it is not displayed
 # and can be used to display the result in different formats
+
+
 def generate_diff(data1, data2):
     result = {}
     for key, value in data1.items():

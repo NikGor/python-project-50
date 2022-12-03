@@ -14,7 +14,7 @@ coverage-missing:
 	poetry run pytest --cov-report term-missing --cov=src
 
 lint:
-	poetry run flake8 gendiff
+	poetry run flake8 src
 
 check:
 	selfcheck test lint
@@ -24,3 +24,6 @@ build:
 
 draw:
 	poetry run draw
+
+selfcheck:
+	poetry check
