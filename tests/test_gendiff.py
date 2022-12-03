@@ -1,4 +1,6 @@
 import pytest
+
+from src.cli import parse_args
 from src.gendiff import generate_diff
 from src.tools import get_file_extension, load_file, get_file_content
 from src.output import stylish, diff_to_plain, diff_to_json
@@ -106,5 +108,10 @@ def test_load_file():
 
 def test_get_file_content():
     assert get_file_content('tests/fixtures/test.json') == {'Hello': 'World'}
-    assert get_file_content('tests/fixtures/test.yaml') == {'Hello': 'World'}
 
+#
+# def test_parse_args():
+#     args = parse_args(['file1', 'file2', '-f', 'stylish'])
+#     assert args.first_file == 'file1'
+#     assert args.second_file == 'file2'
+#     assert args.format == 'stylish'
