@@ -1,7 +1,7 @@
 from src.cli import parse_args
 from src.gendiff import generate_diff
 from src.tools import get_file_content
-from src.output import diff_to_dict, stylish
+from src.output import diff_to_dict, stylish, diff_to_plain
 
 
 def gen_diff():
@@ -9,7 +9,10 @@ def gen_diff():
     dict1 = get_file_content(args.first_file)
     dict2 = get_file_content(args.second_file)
     diff = generate_diff(dict1, dict2)
-    print(stylish(diff_to_dict(diff)))
+    if args.format == 'plain':
+        print(diff_to_plain(diff))
+    else:
+        print(stylish(diff_to_dict(diff)))
 
 
 def main():

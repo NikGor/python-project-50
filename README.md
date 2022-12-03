@@ -25,6 +25,9 @@ Comparison of two files in the JSON format:
 Comparison of two nested files in the YAML format:
 [![asciicast](https://asciinema.org/a/GPsU3IE88CcxFpnzOwH9sSgqN.svg)](https://asciinema.org/a/GPsU3IE88CcxFpnzOwH9sSgqN)
 
+Comparison of two files in the JSON format with plain output:
+[![asciicast](https://asciinema.org/a/HP4Y0O4C2tGsWBXspZRYU5BJK.svg)](https://asciinema.org/a/HP4Y0O4C2tGsWBXspZRYU5BJK)
+
 ### Links
 
 This project was built using these tools:
