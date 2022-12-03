@@ -16,8 +16,7 @@ coverage-missing:
 lint:
 	poetry run flake8 src
 
-check:
-	selfcheck test lint
+check: selfcheck test lint
 
 build:
 	poetry build
@@ -27,3 +26,5 @@ draw:
 
 selfcheck:
 	poetry check
+
+.PHONY: install test lint selfcheck check build
