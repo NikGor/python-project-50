@@ -1,6 +1,6 @@
-from src.logic import diff_calculator
-from src.tools import get_file_content
-from src.output import stylish, diff_to_plain, diff_to_json
+from gendiff.logic import diff_calculator
+from gendiff.tools import get_file_content
+from gendiff.output import stylish, diff_to_plain, diff_to_json
 
 
 def generate_diff(first_file, second_file, output_type='stylish'):

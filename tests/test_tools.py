@@ -1,5 +1,5 @@
 import pytest
-from src.tools import get_file_extension, load_file, get_file_content
+from gendiff.tools import get_file_extension, load_file, get_file_content
 
 
 def test_get_file_extension():

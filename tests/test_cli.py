@@ -1,5 +1,5 @@
 import sys
-from src.cli import parse_args
+from gendiff.cli import parse_args
 
 
 def test_parse_args():
