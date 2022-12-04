@@ -5,7 +5,8 @@ from src.cli import parse_args
 
 def main():
     args = parse_args()
-    print(gendiff.generate_diff(args.first_file, args.second_file, args.format))
+    diff = gendiff.generate_diff(args.first_file, args.second_file, args.output_type)
+    print(diff)
 
 
 if __name__ == '__main__':

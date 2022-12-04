@@ -1,7 +1,7 @@
 import json
 
 
-def diff_to_dict(diff):  # convert diff to dict with '+' and '-' signs
+def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and '-' signs
     result = {}
     for key, value in sorted(diff.items()):
         if isinstance(value[0], dict) and isinstance(value[1], dict):

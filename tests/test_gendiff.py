@@ -1,8 +1,6 @@
 import pytest
-
 from src.gendiff import generate_diff
-from src.tools import load_file, get_file_content
-from src.output import stylish, diff_to_plain, diff_to_json
+from src.tools import load_file
 
 
 @pytest.fixture
@@ -61,37 +59,37 @@ def json_output_fixture():
     return dict1, dict2, result
 
 
-def test_json(json_fixture):
+def test_json(json_fixture):  # test for json
     dict1, dict2, result = json_fixture
     diff = generate_diff(dict1, dict2)
     assert diff == result
 
 
-def test_yaml(yaml_fixture):
+def test_yaml(yaml_fixture):  # test for yaml
     dict1, dict2, result = yaml_fixture
     diff = generate_diff(dict1, dict2)
     assert diff == result
 
 
-def test_nested(nested_json_fixture):
+def test_nested(nested_json_fixture): # test for nested json
     dict1, dict2, result = nested_json_fixture
     diff = generate_diff(dict1, dict2)
     assert diff == result
 
 
-def test_plain_output(plain_output_fixture):
+def test_plain_output(plain_output_fixture):  # test for plain output
     dict1, dict2, result = plain_output_fixture
     diff = generate_diff(dict1, dict2, 'plain')
     assert diff == result
 
 
-def test_plain_output_nested(plain_output_nested_fixture):
+def test_plain_output_nested(plain_output_nested_fixture):  # test for plain output nested
     dict1, dict2, result = plain_output_nested_fixture
     diff = generate_diff(dict1, dict2, 'plain')
     assert diff == result
 
 
-def test_json_output(json_output_fixture):
+def test_json_output(json_output_fixture):  # test for json output
     dict1, dict2, result = json_output_fixture
     diff = generate_diff(dict1, dict2, 'json')
     assert diff == result
