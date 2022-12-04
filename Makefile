@@ -27,4 +27,4 @@ draw:
 selfcheck:
 	poetry check
 
-.PHONY: install test lint selfcheck check build
+ALL: lint install coverage-missing build package-install

@@ -1,7 +1,9 @@
 # Difference Calculator
 
+A command line tool to calculate the difference between two data structures.
 Runs from the command line, compares two configuration files and shows a difference.
 Working with JSON and YAML.
+Provides output in stylish, plain and json format.
 
 ## Usage
 
@@ -11,11 +13,32 @@ Working with JSON and YAML.
 $ gendiff -h
 ```
 
-**Running the script with default settings:**
+**Running:**
 
 ```bash
-$ gendiff <file_path1> <file_path2>
+$ gendiff <file_path1> <file_path2> --format <format>
 ```
+
+format - optional parameter, default value is 'stylish'.
+Possible values: 'stylish', 'plain', 'json'.
+
+
+## Setup
+
+using Makefile:
+
+```bash
+$ make install
+$ make build
+$ make package-install
+```
+
+## Without installation
+
+```sh
+$ python3 -m gendiff.scripts.gendiff <file_path1> <file_path2> --format <format>
+```
+
 
 ## DEMO
 

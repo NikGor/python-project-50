@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-from src.main import gen_diff
+from src import gendiff
+from src.cli import parse_args
 
 
 def main():
-    gen_diff()
+    args = parse_args()
+    print(gendiff.generate_diff(args.first_file, args.second_file, args.format))
 
 
 if __name__ == '__main__':

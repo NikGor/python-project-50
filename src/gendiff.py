@@ -1,23 +1,15 @@
-# the difference between the two dictionaries is stored in the result dictionary
-# I use lists to store the values of the keys: [old_value, new_value]
-# if item in the dictionary is a dictionary, then I call the function recursively
-# the result is only for internal use, it is not displayed
-# and can be used to display the result in different formats
+from src.logic import diff_calculator
+from src.tools import get_file_content
+from src.output import stylish, diff_to_plain, diff_to_json
 
 
-def generate_diff(data1, data2):
-    result = {}
-    for key, value in data1.items():
-        if key in data2:
-            if value == data2[key]:
-                result[key] = [value, value]
-            elif isinstance(value, dict) and isinstance(data2[key], dict):
-                result[key] = [generate_diff(value, data2[key]), generate_diff(value, data2[key])]
-            else:
-                result[key] = [value, data2[key]]
-        else:
-            result[key] = [value, None]
-    for key, value in data2.items():
-        if key not in data1:
-            result[key] = [None, value]
-    return result
+def generate_diff(first_file, second_file, output_type='stylish'):
+    dict1 = get_file_content(first_file)
+    dict2 = get_file_content(second_file)
+    diff = diff_calculator(dict1, dict2)
+    if output_type == 'plain':
+        return diff_to_plain(diff)
+    elif output_type == 'json':
+        return diff_to_json(diff)
+    else:
+        return stylish(diff)
