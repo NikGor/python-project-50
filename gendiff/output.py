@@ -24,7 +24,7 @@ def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and 
 
 
 def stylish(dict_to_print):  # print any dict in stylish format
-    return json.dumps(diff_to_dict(dict_to_print), indent=4).replace('"', '').replace("'", '')
+    return json.dumps(diff_to_dict(dict_to_print), indent=4).replace('"', '').replace("'", '').replace(',', '')
 
 
 # пока затрудняюсь сделать вывод полного пути к свойству

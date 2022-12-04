@@ -522,7 +522,7 @@ py = {version = "*", markers = "implementation_name == \"pypy\""}
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -581,7 +581,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "8895561c57e05573fe366e31d5f80585542c8bd176756e10733955ba71ff7f0a"
+content-hash = "be91dc427bea2c4bcd2366b7144c7af9c9c63987764409ef3c3ec3ab501ca1a7"
 
 [metadata.files]
 appnope = [
