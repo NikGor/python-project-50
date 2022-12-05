@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from gendiff.tools import strip_dict, map_value, map_bool
+from gendiff.tools import strip_dict, map_value, map_stylish
 
 
 def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and '-' signs
@@ -35,7 +35,7 @@ def stylish(diff):
             if isinstance(value, dict):
                 result += f'  {tab * lvl}{key}: {stylish_dict(value, tab, lvl + 1)}\n'
             else:
-                result += f'  {tab * lvl}{key}: {map_bool(value)}\n'
+                result += f'  {tab * lvl}{key}: {map_stylish(value)}\n'
         result += f'{tab * (lvl - 1)}}}'
         return result
 

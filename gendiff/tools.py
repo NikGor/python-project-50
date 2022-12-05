@@ -39,8 +39,13 @@ def map_value(value):  # map values according to the task
         return value
 
 
-def map_bool(value):  # map boolean values according to the task
-    return isinstance(value, bool) and str(value).lower() or value
+def map_stylish(value):  # map boolean values according to the task
+    if isinstance(value, bool):
+        return str(value).lower()
+    elif value is None:
+        return 'null'
+    else:
+        return value
 
 
 def strip_dict(dict_to_strip):  # remove spaces from the beginning of the keys in the dictionary
