@@ -71,7 +71,7 @@ def test_yaml(yaml_fixture):  # test for yaml
     assert diff == result
 
 
-def test_nested(nested_json_fixture): # test for nested json
+def test_nested(nested_json_fixture):  # test for nested json
     dict1, dict2, result = nested_json_fixture
     diff = generate_diff(dict1, dict2)
     assert diff == result

@@ -4,7 +4,6 @@ Property 'setting2' was removed
 Property 'setting3' was removed
 Property 'setting4' was added with value: blah blah
 Property 'setting5' was added with value: [complex value]
-Property 'wow' was updated. From  to so much
 Property 'key' was unchanged
 Property 'ops' was added with value: vops
 Property 'baz' was updated. From bas to bars
