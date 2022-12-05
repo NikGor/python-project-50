@@ -1,4 +1,6 @@
 import os
+import json
+import yaml
 
 
 def normalize_file_name(arg):  # normalize the file name for the current OS
@@ -17,10 +19,8 @@ def load_file(file_name):  # load file
 def get_file_content(file_name):  # get file content as a dictionary
     file_extension = get_file_extension(file_name)
     if file_extension == '.json':
-        import json
         return json.loads(load_file(file_name))
     elif file_extension in ('.yml', '.yaml'):
-        import yaml
         return yaml.load(load_file(file_name), Loader=yaml.FullLoader)
     else:
         raise ValueError('Unknown file extension')
