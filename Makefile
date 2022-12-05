@@ -8,13 +8,13 @@ test:
 	poetry run pytest
 
 test-coverage:
-	poetry run pytest --cov=gendiff --cov-report xml
+	poetry run pytest --cov=src --cov-report xml
 
 coverage-missing:
-	poetry run pytest --cov-report term-missing --cov=gendiff
+	poetry run pytest --cov-report term-missing --cov=src
 
 lint:
-	poetry run flake8 gendiff
+	poetry run flake8 src
 
 check: selfcheck test lint
 
