@@ -28,7 +28,7 @@ def get_file_content(file_name):  # get file content as a dictionary
         raise ValueError('Unknown file extension')
 
 
-def map_value(value):
+def map_value(value):  # map values according to the task
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, bool):
@@ -39,7 +39,7 @@ def map_value(value):
         return value
 
 
-def strip_dict(dict_to_strip):
+def strip_dict(dict_to_strip):  # remove spaces from the beginning of the keys in the dictionary
     result = defaultdict(dict)
     for key, value in dict_to_strip.items():
         if isinstance(value, dict):

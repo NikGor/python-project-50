@@ -25,10 +25,9 @@ def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and 
 
 
 def stylish(dict_to_print):  # print any dict in stylish format
-    return json.dumps(diff_to_dict(dict_to_print), indent=4).replace('"', '').replace("'", '').replace(',', '')
+    return json.dumps(diff_to_dict(dict_to_print), indent=2).replace('"', '').replace("'", '').replace(',', '')
 
 
-# пока затрудняюсь сделать вывод полного пути к свойству
 def diff_to_plain(diff, path=''):  # convert diff to plain format
     result = ''
     for key, value in sorted(diff.items()):
@@ -50,6 +49,5 @@ def diff_to_plain(diff, path=''):  # convert diff to plain format
     return result
 
 
-# return json without leading and trailing spaces in values
 def diff_to_json(diff):
     return json.dumps(strip_dict(diff_to_dict(diff)), indent=5)

@@ -1,5 +1,5 @@
 import pytest
-from gendiff.tools import get_file_extension, load_file, get_file_content, strip_dict
+from gendiff.tools import get_file_extension, load_file, get_file_content, strip_dict, map_value
 
 
 def test_get_file_extension():
@@ -21,3 +21,10 @@ def test_unknown_file_extension():
 
 def test_strip_dict():
     assert strip_dict({'  key': 'value'}) == {'key': 'value'}
+
+
+def test_map_value():
+    assert map_value({'key': 'value'}) == '[complex value]'
+    assert map_value(True) == 'true'
+    assert map_value('value') == "'value'"
+    assert map_value(1) == 1
