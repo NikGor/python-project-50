@@ -52,4 +52,4 @@ def diff_to_plain(diff, path=''):  # convert diff to plain format
 
 # return json without leading and trailing spaces in values
 def diff_to_json(diff):
-    return json.dumps(strip_dict(diff_to_dict(diff)), indent=3)
+    return json.dumps(strip_dict(diff_to_dict(diff)), indent=5)
