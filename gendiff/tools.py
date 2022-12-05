@@ -39,6 +39,10 @@ def map_value(value):  # map values according to the task
         return value
 
 
+def map_bool(value):  # map boolean values according to the task
+    return isinstance(value, bool) and str(value).lower() or value
+
+
 def strip_dict(dict_to_strip):  # remove spaces from the beginning of the keys in the dictionary
     result = defaultdict(dict)
     for key, value in dict_to_strip.items():

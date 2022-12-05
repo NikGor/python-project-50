@@ -1,51 +1,63 @@
 import json
-from gendiff.tools import map_value, strip_dict
+from collections import defaultdict
+from gendiff.tools import strip_dict, map_value, map_bool
 
 
 def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and '-' signs
-    result = {}
+    result = defaultdict(dict)
     for key, value in sorted(diff.items()):
-        if isinstance(value[0], dict) and isinstance(value[1], dict):
-            result[key] = diff_to_dict(value[0])
-        elif value[0] is None:
+        if 'new' in value and 'old' in value:
+            if isinstance(value['old'], dict) and isinstance(value['new'], dict):
+                result[key] = diff_to_dict(value['old'])
+            elif value['old'] == value['new']:
+                result_key = f'  {key}'
+                result[result_key] = value['old']
+            else:
+                result_key = f'- {key}'
+                result[result_key] = value['old']
+                result_key = f'+ {key}'
+                result[result_key] = value['new']
+        elif 'new' in value:
             result_key = f'+ {key}'
-            result[result_key] = value[1]
-        elif value[1] is None:
-            result_key = f'- {key}'
-            result[result_key] = value[0]
-        elif value[0] == value[1]:
-            result_key = f'  {key}'
-            result[result_key] = value[0]
-        else:
-            result_key = f'- {key}'
-            result[result_key] = value[0]
-            result_key = f'+ {key}'
-            result[result_key] = value[1]
+            result[result_key] = value['new']
+        # elif 'old' in value:
+        #     result_key = f'- {key}'
+        #     result[result_key] = value['old']
     return result
 
 
-def stylish(dict_to_print):  # print any dict in stylish format
-    return json.dumps(diff_to_dict(dict_to_print), indent=2).replace('"', '').replace("'", '').replace(',', '')
+def stylish(diff):
+    dict_to_print = diff_to_dict(diff)
+
+    def stylish_dict(dict_to_stylish, tab='  ', lvl=1):  # print any dict in stylish format
+        result = '{\n'
+        for key, value in dict_to_stylish.items():
+            if isinstance(value, dict):
+                result += f'  {tab * lvl}{key}: {stylish_dict(value, tab, lvl + 1)}\n'
+            else:
+                result += f'  {tab * lvl}{key}: {map_bool(value)}\n'
+        result += f'{tab * (lvl - 1)}}}'
+        return result
+
+    return stylish_dict(dict_to_print)
+    # return json.dumps(diff_to_dict(dict_to_print), indent=2).replace('"', '').replace("'", '').replace(',', '')
 
 
 def diff_to_plain(diff, path=''):  # convert diff to plain format
     result = ''
     for key, value in sorted(diff.items()):
-        if path:
-            key = f'{path}.{key}'
-        if value[0] is None:
-            if isinstance(value[1], dict):
-                result += f'Property \'{key}\' was added with value: {map_value(value[1])}\n'
+        if 'new' in value and 'old' in value:
+            if isinstance(value['old'], dict) and isinstance(value['new'], dict):
+                result += diff_to_plain(value['old'], f'{path}.{key}')
+            elif value['old'] == value['new']:
+                pass
             else:
-                result += f'Property \'{key}\' was added with value: {map_value(value[1])}\n'
-        elif value[1] is None:
-            result += f'Property \'{key}\' was removed\n'
-        elif isinstance(value[0], dict) and isinstance(value[1], dict):
-            result += diff_to_plain(value[0], key)
-        elif value[0] == value[1]:
-            pass
-        else:
-            result += f'Property \'{key}\' was updated. From {map_value(value[0])} to {map_value(value[1])}\n'
+                result += f"Property '{path}.{key}' was updated. " \
+                          f"From {map_value(value['old'])} to {map_value(value['new'])}\n"
+        elif 'new' in value:
+            result += f"Property '{path}.{key}' was added with value: {map_value(value['new'])}\n"
+        elif 'old' in value:
+            result += f"Property '{path}.{key}' was removed\n"
     return result
 
 

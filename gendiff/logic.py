@@ -10,14 +10,14 @@ def diff_calculator(data1, data2):
     for key, value in data1.items():
         if key in data2:
             if isinstance(value, dict) and isinstance(data2[key], dict):
-                result[key] = [diff_calculator(value, data2[key]), diff_calculator(value, data2[key])]
+                result[key] = {'old': diff_calculator(value, data2[key]), 'new': diff_calculator(value, data2[key])}
             elif value == data2[key]:
-                result[key] = [value, value]
+                result[key] = {'old': value, 'new': value}
             else:
-                result[key] = [value, data2[key]]
+                result[key] = {'old': value, 'new': data2[key]}
         else:
-            result[key] = [value, None]
+            result[key] = {'old': value}
     for key, value in data2.items():
         if key not in data1:
-            result[key] = [None, value]
+            result[key] = {'new': value}
     return result

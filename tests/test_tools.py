@@ -28,3 +28,4 @@ def test_map_value():
     assert map_value(True) == 'true'
     assert map_value('value') == "'value'"
     assert map_value(1) == 1
+
