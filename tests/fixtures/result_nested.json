@@ -23,9 +23,6 @@
           },
           "+ nest": "str"
      },
-     "- group2": {
-          "deep": {}
-     },
      "+ group3": {
           "deep": {
                "id": {}
