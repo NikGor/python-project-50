@@ -1,6 +1,4 @@
 import json
-from collections import defaultdict
-
 from gendiff.tools import map_value, strip_dict
 
 
