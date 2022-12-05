@@ -1,4 +1,7 @@
 import json
+from collections import defaultdict
+
+from gendiff.tools import map_value, strip_dict
 
 
 def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and '-' signs
@@ -28,27 +31,27 @@ def stylish(dict_to_print):  # print any dict in stylish format
 
 
 # пока затрудняюсь сделать вывод полного пути к свойству
-def diff_to_plain(diff):  # convert diff to plain format
-    result = []
+def diff_to_plain(diff, path=''):  # convert diff to plain format
+    result = ''
     for key, value in sorted(diff.items()):
-        if isinstance(value[0], dict) and isinstance(value[1], dict):
-            result.append(diff_to_plain(value[0]))
-        elif value[0] is None:
+        if path:
+            key = f'{path}.{key}'
+        if value[0] is None:
             if isinstance(value[1], dict):
-                result.append(f"Property '{key}' was added with value: [complex value]")
+                result += f'Property \'{key}\' was added with value: {map_value(value[1])}\n'
             else:
-                result.append(f"Property '{key}' was added with value: {value[1]}")
+                result += f'Property \'{key}\' was added with value: {map_value(value[1])}\n'
         elif value[1] is None:
-            result.append(f"Property '{key}' was removed")
+            result += f'Property \'{key}\' was removed\n'
+        elif isinstance(value[0], dict) and isinstance(value[1], dict):
+            result += diff_to_plain(value[0], key)
         elif value[0] == value[1]:
-            result.append(f'Property \'{key}\' was unchanged')
+            pass
         else:
-            if isinstance(value[0], dict):
-                result.append(f"Property '{key}' was updated. From [complex value] to {value[1]}")
-            else:
-                result.append(f"Property '{key}' was updated. From {value[0]} to {value[1]}")
-    return '\n'.join(result)
+            result += f'Property \'{key}\' was updated. From {map_value(value[0])} to {map_value(value[1])}\n'
+    return result
 
 
-def diff_to_json(diff):  # convert diff to json format
-    return json.dumps(diff_to_dict(diff), indent=4)
+# return json without leading and trailing spaces in values
+def diff_to_json(diff):
+    return json.dumps(strip_dict(diff_to_dict(diff)), indent=3)

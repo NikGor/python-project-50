@@ -1,6 +1,6 @@
 import pytest
 from gendiff import generate_diff
-from gendiff.tools import load_file
+from gendiff.tools import load_file, get_file_content
 
 
 @pytest.fixture
@@ -36,18 +36,10 @@ def nested_yaml_fixture():
 
 
 @pytest.fixture
-def plain_output_fixture():
-    dict1 = 'tests/fixtures/file1.json'
-    dict2 = 'tests/fixtures/file2.json'
-    result = load_file('tests/fixtures/plain_result.txt')
-    return dict1, dict2, result
-
-
-@pytest.fixture
 def plain_output_nested_fixture():
     dict1 = 'tests/fixtures/nested1.json'
     dict2 = 'tests/fixtures/nested2.json'
-    result = load_file('tests/fixtures/plain_nested_result.txt')
+    result = load_file('tests/fixtures/plain_nested_result')
     return dict1, dict2, result
 
 
@@ -74,12 +66,6 @@ def test_yaml(yaml_fixture):  # test for yaml
 def test_nested(nested_json_fixture):  # test for nested json
     dict1, dict2, result = nested_json_fixture
     diff = generate_diff(dict1, dict2)
-    assert diff == result
-
-
-def test_plain_output(plain_output_fixture):  # test for plain output
-    dict1, dict2, result = plain_output_fixture
-    diff = generate_diff(dict1, dict2, 'plain')
     assert diff == result
 
 

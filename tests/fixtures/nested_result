@@ -9,6 +9,10 @@
             key5: value5
         }
         setting6: {
+            doge: {
+                - wow: 
+                + wow: so much
+            }
               key: value
             + ops: vops
         }

@@ -1,5 +1,7 @@
 import os
 import json
+from collections import defaultdict
+
 import yaml
 
 
@@ -24,3 +26,26 @@ def get_file_content(file_name):  # get file content as a dictionary
         return yaml.load(load_file(file_name), Loader=yaml.FullLoader)
     else:
         raise ValueError('Unknown file extension')
+
+
+def map_value(value):
+    if isinstance(value, dict):
+        return '[complex value]'
+    elif isinstance(value, bool):
+        return str(value).lower()
+    elif isinstance(value, str):
+        return f"'{value}'"
+    else:
+        return value
+
+
+def strip_dict(dict_to_strip):
+    result = defaultdict(dict)
+    for key, value in dict_to_strip.items():
+        if isinstance(value, dict):
+            result[key] = strip_dict(value)
+        else:
+            if isinstance(value, str):
+                new_key = key.strip()
+                result[new_key] = value.strip()
+    return result

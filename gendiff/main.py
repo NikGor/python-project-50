@@ -8,7 +8,7 @@ def generate_diff(first_file, second_file, output_type='stylish'):
     dict2 = get_file_content(second_file)
     diff = diff_calculator(dict1, dict2)
     if output_type == 'plain':
-        return diff_to_plain(diff)
+        return diff_to_plain(diff)[:-1]
     elif output_type == 'json':
         return diff_to_json(diff)
     else:
