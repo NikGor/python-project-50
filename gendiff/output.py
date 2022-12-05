@@ -20,9 +20,9 @@ def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and 
         elif 'new' in value:
             result_key = f'+ {key}'
             result[result_key] = value['new']
-        # elif 'old' in value:
-        #     result_key = f'- {key}'
-        #     result[result_key] = value['old']
+        elif 'old' in value:
+            result_key = f'- {key}'
+            result[result_key] = value['old']
     return result
 
 
