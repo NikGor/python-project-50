@@ -1,7 +1,5 @@
 import os
 import json
-from collections import defaultdict
-
 import yaml
 
 
@@ -35,6 +33,8 @@ def map_value(value):  # map values according to the task
         return str(value).lower()
     elif isinstance(value, str):
         return f"'{value}'"
+    elif value is None:
+        return 'null'
     else:
         return value
 
@@ -46,15 +46,3 @@ def map_stylish(value):  # map boolean values according to the task
         return 'null'
     else:
         return value
-
-
-def strip_dict(dict_to_strip):  # remove spaces from the beginning of the keys in the dictionary
-    result = defaultdict(dict)
-    for key, value in dict_to_strip.items():
-        if isinstance(value, dict):
-            result[key] = strip_dict(value)
-        else:
-            if isinstance(value, str):
-                new_key = key.strip()
-                result[new_key] = value.strip()
-    return result

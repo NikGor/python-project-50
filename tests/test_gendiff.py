@@ -1,6 +1,6 @@
 import pytest
 from gendiff import generate_diff
-from gendiff.tools import load_file, get_file_content
+from gendiff.tools import load_file
 
 
 @pytest.fixture

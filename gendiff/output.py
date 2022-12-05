@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from gendiff.tools import strip_dict, map_value, map_stylish
+from gendiff.tools import map_value, map_stylish
 
 
 def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and '-' signs
@@ -47,28 +47,26 @@ def hexlet_stylish(diff):
         return result
 
     return stylish(dict_to_print)
-    # dict_to_stylish = diff_to_dict(diff)
-    # return json.dumps(dict_to_stylish, indent=2).replace('"', '').replace("'", ''). \
-    #     replace(',', '').replace('  ', '    ', 1)
 
 
 def diff_to_plain(diff, path=''):  # convert diff to plain format
     result = ''
     for key, value in sorted(diff.items()):
+        key = f'{path}.{key}' if path else key
         if 'new' in value and 'old' in value:
             if isinstance(value['old'], dict) and isinstance(value['new'], dict):
-                result += diff_to_plain(value['old'], f'{path}.{key}')
+                result += diff_to_plain(value['old'], f'{key}')
             elif value['old'] == value['new']:
                 pass
             else:
-                result += f"Property '{path}.{key}' was updated. " \
+                result += f"Property '{key}' was updated. " \
                           f"From {map_value(value['old'])} to {map_value(value['new'])}\n"
         elif 'new' in value:
-            result += f"Property '{path}.{key}' was added with value: {map_value(value['new'])}\n"
+            result += f"Property '{key}' was added with value: {map_value(value['new'])}\n"
         elif 'old' in value:
-            result += f"Property '{path}.{key}' was removed\n"
+            result += f"Property '{key}' was removed\n"
     return result
 
 
 def diff_to_json(diff):
-    return json.dumps(strip_dict(diff_to_dict(diff)), indent=5)
+    return json.dumps(diff_to_dict(diff), indent=5)
