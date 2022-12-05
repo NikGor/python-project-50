@@ -1,6 +1,6 @@
 from gendiff.logic import diff_calculator
 from gendiff.tools import get_file_content
-from gendiff.output import stylish, diff_to_plain, diff_to_json
+from gendiff.output import hexlet_stylish, diff_to_plain, diff_to_json
 
 
 def generate_diff(first_file, second_file, output_type='stylish'):
@@ -12,4 +12,4 @@ def generate_diff(first_file, second_file, output_type='stylish'):
     elif output_type == 'json':
         return diff_to_json(diff)
     else:
-        return stylish(diff)
+        return hexlet_stylish(diff)

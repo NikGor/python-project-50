@@ -1,5 +1,5 @@
 # the difference between the two dictionaries is stored in the result dictionary
-# I use lists to store the values of the keys: [old_value, new_value]
+# I use lists to store the values of the keys: {'old': old_value, 'new': new_value}
 # if item in the dictionary is a dictionary, then I call the function recursively
 # the result is only for internal use, it is not displayed
 # and can be used to display the result in different formats

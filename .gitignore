@@ -5,3 +5,5 @@ dist/
 .venv/
 .pytest_cache/
 .vim
+setup.cfg
+.idea/
