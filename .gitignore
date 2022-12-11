@@ -7,3 +7,5 @@ dist/
 .vim
 setup.cfg
 .idea/
+coverage.xml
+.coverage
