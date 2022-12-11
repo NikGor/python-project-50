@@ -13,4 +13,3 @@ def generate_diff(first_file, second_file, output_type='stylish'):
         return diff_to_json(diff)
     else:
         return hexlet_stylish(diff)
-
