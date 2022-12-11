@@ -10,23 +10,17 @@ def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and 
             if isinstance(value['old'], dict) and isinstance(value['new'], dict):
                 result[key] = diff_to_dict(value['old'])
             elif value['old'] == value['new']:
-                result_key = f'{key}'
-                result[result_key] = value['old']
+                result[key] = value['old']
             else:
-                result_key = f'- {key}'
-                result[result_key] = value['old']
-                result_key = f'+ {key}'
-                result[result_key] = value['new']
+                result[f'- {key}'] = value['old']
+                result[f'+ {key}'] = value['new']
         elif 'new' in value:
-            result_key = f'+ {key}'
-            result[result_key] = value['new']
+            result[f'+ {key}'] = value['new']
         elif 'old' in value:
-            result_key = f'- {key}'
-            result[result_key] = value['old']
+            result[f'- {key}'] = value['old']
     return result
 
 
-# if key is not starting with '+' or '-', then add two spaces
 def hexlet_stylish(diff):
     dict_to_print = diff_to_dict(diff)
 
