@@ -14,11 +14,6 @@ def test_get_file_content():
     assert get_file_content('tests/fixtures/test.json') == {'Hello': 'World'}
 
 
-def test_unknown_file_extension():
-    with pytest.raises(ValueError):
-        get_file_content('tests/fixtures/test.txt')
-
-
 def test_map_value():
     assert map_value({'key': 'value'}) == '[complex value]'
     assert map_value(True) == 'true'

@@ -3,79 +3,36 @@ from gendiff import generate_diff
 from gendiff.tools import load_file
 
 
-@pytest.fixture
-def json_fixture():
-    dict1 = 'tests/fixtures/file1.json'
-    dict2 = 'tests/fixtures/file2.json'
-    result = load_file('tests/fixtures/result.txt')
-    return dict1, dict2, result
+# to test:
+# 1. compare two json files, output in stylish format
+# 2. compare two yaml files, output in stylish format
+# 3. compare two nested json files, output in stylish format
+# 4. compare two nested yaml files, output in stylish format
+# ...
+# repeat for all possible combinations of input files and output formats
+# summary: 2 * 2 * 3 = 12 tests
 
+@pytest.mark.parametrize("file1, file2, result, output_format", [
+    ('tests/fixtures/file1.json', 'tests/fixtures/file2.json', load_file('tests/fixtures/result.txt'), None),
+    ('tests/fixtures/file1.yml', 'tests/fixtures/file2.yml', load_file('tests/fixtures/result.txt'), None),
+    ('tests/fixtures/nested1.json', 'tests/fixtures/nested2.json', load_file('tests/fixtures/nested_result.txt'), None),
+    ('tests/fixtures/nested1.yaml', 'tests/fixtures/nested2.yml', load_file('tests/fixtures/nested_result.txt'), None),
+    ('tests/fixtures/file1.json', 'tests/fixtures/file2.json', load_file('tests/fixtures/plain_result.txt'), 'plain'),
+    ('tests/fixtures/file1.yml', 'tests/fixtures/file2.yml', load_file('tests/fixtures/plain_result.txt'), 'plain'),
+    ('tests/fixtures/nested1.yaml', 'tests/fixtures/nested2.yml',
+     load_file('tests/fixtures/plain_nested_result.txt'), 'plain'),
+    ('tests/fixtures/nested1.json', 'tests/fixtures/nested2.json',
+     load_file('tests/fixtures/plain_nested_result.txt'), 'plain'),
+    ('tests/fixtures/file1.json', 'tests/fixtures/file2.json',
+     load_file('tests/fixtures/result.json'), 'json'),
+    ('tests/fixtures/file1.yml', 'tests/fixtures/file2.yml',
+     load_file('tests/fixtures/result.json'), 'json'),
+    ('tests/fixtures/nested1.json', 'tests/fixtures/nested2.json',
+     load_file('tests/fixtures/nested_result.json'), 'json'),
+    ('tests/fixtures/nested1.yaml', 'tests/fixtures/nested2.yml',
+     load_file('tests/fixtures/nested_result.json'), 'json')
 
-@pytest.fixture
-def yaml_fixture():
-    dict1 = 'tests/fixtures/file1.yml'
-    dict2 = 'tests/fixtures/file2.yml'
-    result = load_file('tests/fixtures/result.txt')
-    return dict1, dict2, result
-
-
-@pytest.fixture
-def nested_json_fixture():
-    dict1 = 'tests/fixtures/nested1.json'
-    dict2 = 'tests/fixtures/nested2.json'
-    result = load_file('tests/fixtures/nested_result')
-    return dict1, dict2, result
-
-
-@pytest.fixture
-def nested_yaml_fixture():
-    dict1 = 'tests/fixtures/nested1.yaml'
-    dict2 = 'tests/fixtures/nested2.yml'
-    result = load_file('tests/fixtures/nested_result')
-    return dict1, dict2, result
-
-
-@pytest.fixture
-def plain_output_nested_fixture():
-    dict1 = 'tests/fixtures/nested1.json'
-    dict2 = 'tests/fixtures/nested2.json'
-    result = load_file('tests/fixtures/plain_nested_result')
-    return dict1, dict2, result
-
-
-@pytest.fixture
-def json_output_fixture():
-    dict1 = 'tests/fixtures/nested1.json'
-    dict2 = 'tests/fixtures/nested2.json'
-    result = load_file('tests/fixtures/result_nested.json')
-    return dict1, dict2, result
-
-
-def test_json(json_fixture):  # test for json
-    dict1, dict2, result = json_fixture
-    diff = generate_diff(dict1, dict2)
-    assert diff == result
-
-
-def test_yaml(yaml_fixture):  # test for yaml
-    dict1, dict2, result = yaml_fixture
-    diff = generate_diff(dict1, dict2)
-    assert diff == result
-
-
-def test_nested(nested_json_fixture):  # test for nested json
-    dict1, dict2, result = nested_json_fixture
-    diff = generate_diff(dict1, dict2)
-    assert diff == result
-
-
-def test_plain_output_nested(plain_output_nested_fixture):  # test for plain output nested
-    dict1, dict2, result = plain_output_nested_fixture
-    diff = generate_diff(dict1, dict2, 'plain')
-    assert diff == result
-
-
-def test_json_output(json_output_fixture):  # test for json output
-    dict1, dict2, result = json_output_fixture
-    diff = generate_diff(dict1, dict2, 'json')
+])
+def test_diff(file1, file2, result, output_format):
+    diff = generate_diff(file1, file2, output_format)
     assert diff == result

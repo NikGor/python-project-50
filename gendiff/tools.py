@@ -1,6 +1,5 @@
 import os
-import json
-import yaml
+from gendiff.parser import parse
 
 
 def normalize_file_name(filename):  # normalize the file name for the current OS
@@ -16,14 +15,11 @@ def load_file(filename):  # load file
         return file.read()
 
 
-def get_file_content(filename):  # get file content as a dictionary
-    file_extension = get_file_extension(filename)
-    if file_extension == '.json':
-        return json.loads(load_file(filename))
-    elif file_extension in ('.yml', '.yaml'):
-        return yaml.load(load_file(filename), Loader=yaml.FullLoader)
-    else:
-        raise ValueError('Unknown file extension')
+def get_file_content(file_name):  # get file content
+    file_extension = get_file_extension(file_name)
+    with open(file_name) as f:
+        data = f.read()
+    return parse(data, file_extension)
 
 
 def map_value(value):  # map values according to the task
