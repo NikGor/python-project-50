@@ -6,5 +6,4 @@ dist/
 .pytest_cache/
 .vim
 .idea/
-coverage.xml
 .coverage
