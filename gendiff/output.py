@@ -4,30 +4,19 @@ from gendiff.tools import map_value, map_stylish
 
 
 def diff_to_dict(diff):
-    def handle_changed(key, value):
-        result[f'- {key}'] = value['value']['old']
-        result[f'+ {key}'] = value['value']['new']
-
-    def handle_added(key, value):
-        result[f'+ {key}'] = value['value']
-
-    def handle_removed(key, value):
-        result[f'- {key}'] = value['value']
-
-    def handle_unchanged(key, value):
-        result[key] = value['value']
-
-    def handle_nested(key, value):
-        result[key] = diff_to_dict(value['value'])
-
     result = defaultdict(dict)
     for key, value in sorted(diff.items()):
-        handler = {'changed': handle_changed,
-                   'added': handle_added,
-                   'removed': handle_removed,
-                   'unchanged': handle_unchanged,
-                   'nested': handle_nested}[value['type']]
-        handler(key, value)
+        if value['type'] == 'changed':
+            result[f'- {key}'] = value['value']['old']
+            result[f'+ {key}'] = value['value']['new']
+        elif value['type'] == 'added':
+            result[f'+ {key}'] = value['value']
+        elif value['type'] == 'removed':
+            result[f'- {key}'] = value['value']
+        elif value['type'] == 'unchanged':
+            result[key] = value['value']
+        elif value['type'] == 'nested':
+            result[key] = diff_to_dict(value['value'])
     return result
 
 
