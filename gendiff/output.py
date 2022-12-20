@@ -3,25 +3,35 @@ from collections import defaultdict
 from gendiff.tools import map_value, map_stylish
 
 
-def diff_to_dict(diff):  # convert internal diff structure to dict with '+' and '-' signs
+def diff_to_dict(diff):
+    def handle_changed(key, value):
+        result[f'- {key}'] = value['value']['old']
+        result[f'+ {key}'] = value['value']['new']
+
+    def handle_added(key, value):
+        result[f'+ {key}'] = value['value']
+
+    def handle_removed(key, value):
+        result[f'- {key}'] = value['value']
+
+    def handle_unchanged(key, value):
+        result[key] = value['value']
+
+    def handle_nested(key, value):
+        result[key] = diff_to_dict(value['value'])
+
     result = defaultdict(dict)
     for key, value in sorted(diff.items()):
-        if 'new' in value and 'old' in value:
-            if isinstance(value['old'], dict) and isinstance(value['new'], dict):
-                result[key] = diff_to_dict(value['old'])
-            elif value['old'] == value['new']:
-                result[key] = value['old']
-            else:
-                result[f'- {key}'] = value['old']
-                result[f'+ {key}'] = value['new']
-        elif 'new' in value:
-            result[f'+ {key}'] = value['new']
-        elif 'old' in value:
-            result[f'- {key}'] = value['old']
+        handler = {'changed': handle_changed,
+                   'added': handle_added,
+                   'removed': handle_removed,
+                   'unchanged': handle_unchanged,
+                   'nested': handle_nested}[value['type']]
+        handler(key, value)
     return result
 
 
-def hexlet_stylish(diff):
+def format_stylish(diff):
     dict_to_print = diff_to_dict(diff)
 
     def stylish(dict_to_stylish, tab='    ', lvl=1):  # print any dict in stylish format
@@ -43,24 +53,21 @@ def hexlet_stylish(diff):
     return stylish(dict_to_print)
 
 
-def diff_to_plain(diff, path=''):  # convert diff to plain format
+def format_plain(diff, path=''):
     result = ''
     for key, value in sorted(diff.items()):
         key = f'{path}.{key}' if path else key
-        if 'new' in value and 'old' in value:
-            if isinstance(value['old'], dict) and isinstance(value['new'], dict):
-                result += diff_to_plain(value['old'], f'{key}')
-            elif value['old'] == value['new']:
-                pass
-            else:
-                result += f"Property '{key}' was updated. " \
-                          f"From {map_value(value['old'])} to {map_value(value['new'])}\n"
-        elif 'new' in value:
-            result += f"Property '{key}' was added with value: {map_value(value['new'])}\n"
-        elif 'old' in value:
+        if value['type'] == 'nested':
+            result += format_plain(value['value'], f'{key}')
+        elif value['type'] == 'changed':
+            result += f"Property '{key}' was updated. " \
+                      f"From {map_value(value['value']['old'])} to {map_value(value['value']['new'])}\n"
+        elif value['type'] == 'added':
+            result += f"Property '{key}' was added with value: {map_value(value['value'])}\n"
+        elif value['type'] == 'removed':
             result += f"Property '{key}' was removed\n"
     return result
 
 
-def diff_to_json(diff):
+def format_json(diff):
     return json.dumps(diff_to_dict(diff), indent=5)
