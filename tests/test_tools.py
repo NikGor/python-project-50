@@ -1,4 +1,5 @@
-from gendiff.tools import get_file_extension, load_file, get_file_content, map_value
+from gendiff.utils.file_utils import get_file_extension, load_file, get_file_content
+from gendiff.utils.mapping_utils import map_value
 
 
 def test_get_file_extension():

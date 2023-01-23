@@ -1,5 +1,4 @@
 import pytest
-
 from gendiff.parser import parse
 
 

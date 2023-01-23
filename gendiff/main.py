@@ -1,6 +1,8 @@
 from gendiff.diff_tree import build_diff_tree
-from gendiff.tools import get_file_content
-from gendiff.output import format_stylish, format_plain, format_json
+from gendiff.formaters.json import format_json
+from gendiff.formaters.plain import format_plain
+from gendiff.formaters.stylish import format_stylish
+from gendiff.utils.file_utils import get_file_content
 
 
 def generate_diff(first_file, second_file, output_type='stylish'):

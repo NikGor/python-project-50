@@ -1,6 +1,6 @@
 import pytest
 from gendiff import generate_diff
-from gendiff.tools import load_file
+from gendiff.utils.file_utils import load_file
 
 
 # to test:
