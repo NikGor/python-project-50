@@ -17,13 +17,13 @@ def convert_diff_tree_to_dict(diff):
     def handle_removed(key, value):
         result[f'- {key}'] = value['removed']
 
-    def handle_dict(key, value):
+    def handle_nested(key, value):
         result[key] = convert_diff_tree_to_dict(value['old'])
 
     for key, value in sorted(diff.items()):
         if 'new' in value and 'old' in value:
             if isinstance(value['old'], dict) and isinstance(value['new'], dict):
-                handle_dict(key, value)
+                handle_nested(key, value)
             elif value['old'] == value['new']:
                 handle_equal(key, value)
             else:
