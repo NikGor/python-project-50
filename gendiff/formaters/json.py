@@ -1,6 +1,6 @@
 import json
-from gendiff.diff_tree import diff_to_dict
+from gendiff.formaters.diff_tree_utils import convert_diff_tree_to_dict
 
 
 def format_json(diff):
-    return json.dumps(diff_to_dict(diff), indent=5)
+    return json.dumps(convert_diff_tree_to_dict(diff), indent=5)

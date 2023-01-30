@@ -1,9 +1,9 @@
 import json
-from gendiff.diff_tree import diff_to_dict
+from gendiff.formaters.diff_tree_utils import convert_diff_tree_to_dict
 
 
 def format_stylish(diff):
-    result = json.dumps(diff_to_dict(diff), indent=4)
+    result = json.dumps(convert_diff_tree_to_dict(diff), indent=4)
     replace = {
         '"': '',
         ',': '',
