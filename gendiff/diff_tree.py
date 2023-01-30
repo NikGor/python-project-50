@@ -8,19 +8,19 @@ def build_diff_tree(old_data, new_data):
         else:
             return {'old': old_value, 'new': new_value}
 
-    def handle_old(key):
-        return {'old': old_data[key]}
+    def handle_removed(key):
+        return {'removed': old_data[key]}
 
-    def handle_new(key):
-        return {'new': new_data[key]}
+    def handle_added(key):
+        return {'added': new_data[key]}
 
     result = {}
     for key in set(old_data) | set(new_data):
         if key in old_data and key in new_data:
             handler = handle_common_key
         elif key in old_data:
-            handler = handle_old
+            handler = handle_removed
         else:
-            handler = handle_new
+            handler = handle_added
         result[key] = handler(key)
     return result

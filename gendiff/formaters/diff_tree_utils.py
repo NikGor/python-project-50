@@ -11,11 +11,11 @@ def convert_diff_tree_to_dict(diff):
         result[f'- {key}'] = value['old']
         result[f'+ {key}'] = value['new']
 
-    def handle_new(key, value):
-        result[f'+ {key}'] = value['new']
+    def handle_added(key, value):
+        result[f'+ {key}'] = value['added']
 
-    def handle_old(key, value):
-        result[f'- {key}'] = value['old']
+    def handle_removed(key, value):
+        result[f'- {key}'] = value['removed']
 
     def handle_dict(key, value):
         result[key] = convert_diff_tree_to_dict(value['old'])
@@ -28,8 +28,8 @@ def convert_diff_tree_to_dict(diff):
                 handle_equal(key, value)
             else:
                 handle_different(key, value)
-        elif 'new' in value:
-            handle_new(key, value)
-        elif 'old' in value:
-            handle_old(key, value)
+        elif 'added' in value:
+            handle_added(key, value)
+        elif 'removed' in value:
+            handle_removed(key, value)
     return result

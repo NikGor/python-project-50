@@ -9,7 +9,7 @@ def format_plain(diff, path=''):
         return f"Property '{key}' was updated. From {map_value(value['old'])} to {map_value(value['new'])}\n"
 
     def handle_new(key, value):
-        return f"Property '{key}' was added with value: {map_value(value['new'])}\n"
+        return f"Property '{key}' was added with value: {map_value(value['added'])}\n"
 
     def handle_old(key, value):
         return f"Property '{key}' was removed\n"
@@ -27,8 +27,8 @@ def format_plain(diff, path=''):
                 result += handle_equal(key, value)
             else:
                 result += handle_different(key, value)
-        elif 'new' in value:
+        elif 'added' in value:
             result += handle_new(key, value)
-        elif 'old' in value:
+        elif 'removed' in value:
             result += handle_old(key, value)
     return result
