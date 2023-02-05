@@ -8,3 +8,5 @@ venv/
 .vim
 .idea/
 .coverage
+templates/
+app.py

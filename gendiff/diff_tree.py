@@ -3,8 +3,7 @@ def build_diff_tree(old_data, new_data):
         old_value = old_data[key]
         new_value = new_data[key]
         if isinstance(old_value, dict) and isinstance(new_value, dict):
-            return {'old': build_diff_tree(old_value, new_value),
-                    'new': build_diff_tree(old_value, new_value)}
+            return {'nested': build_diff_tree(old_value, new_value)}
         else:
             return {'old': old_value, 'new': new_value}
 

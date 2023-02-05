@@ -15,13 +15,13 @@ def format_plain(diff, path=''):
         return f"Property '{key}' was removed\n"
 
     def handle_nested(key, value):
-        return format_plain(value['old'], f'{key}')
+        return format_plain(value['nested'], f'{key}')
 
     result = ''
     for key, value in sorted(diff.items()):
         key = f'{path}.{key}' if path else key
         if 'new' in value and 'old' in value:
-            if isinstance(value['old'], dict) and isinstance(value['new'], dict):
+            if 'nested' in value:
                 result += handle_nested(key, value)
             elif value['old'] == value['new']:
                 result += handle_equal(key, value)
@@ -31,4 +31,6 @@ def format_plain(diff, path=''):
             result += handle_added(key, value)
         elif 'removed' in value:
             result += handle_removed(key, value)
+        elif 'nested' in value:
+            result += handle_nested(key, value)
     return result
