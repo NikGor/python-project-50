@@ -9,4 +9,5 @@ venv/
 .idea/
 .coverage
 templates/
+static/
 app.py

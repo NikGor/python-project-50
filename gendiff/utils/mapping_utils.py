@@ -1,4 +1,4 @@
-def map_value(value):  # map values according to the task
+def map_plain(value):  # map values according to the task
     def handle_dict():
         return '[complex value]'
 
@@ -22,3 +22,18 @@ def map_value(value):  # map values according to the task
     }
 
     return handlers.get(type(value), handle_default)()
+
+
+def map_stylish(string):
+    replace = {
+        '"': '',
+        ',': '',
+        '   +': ' +',
+        '   -': ' -',
+        '"true"': 'true',
+        '"false"': 'false',
+        '"null"': 'null',
+    }
+    for key, value in replace.items():
+        string = string.replace(key, value)
+    return string

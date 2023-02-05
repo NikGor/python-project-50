@@ -1,5 +1,6 @@
 import json
 from collections import defaultdict
+from gendiff.utils.mapping_utils import map_stylish
 
 
 def format_stylish(diff):
@@ -19,9 +20,6 @@ def format_stylish(diff):
         def handle_removed(key, value):
             result[f'- {key}'] = value['removed']
 
-        def handle_dict(key, value):
-            result[key] = convert_diff_tree_to_dict(value)
-
         def handle_nested(key, value):
             result[key] = convert_diff_tree_to_dict(value)
 
@@ -38,19 +36,8 @@ def format_stylish(diff):
             elif 'removed' in value:
                 handle_removed(key, value)
             elif 'nested' in value:
-                handle_dict(key, value['nested'])
+                handle_nested(key, value['nested'])
         return result
 
     result = json.dumps(convert_diff_tree_to_dict(diff), indent=4)
-    replace = {
-        '"': '',
-        ',': '',
-        '   +': ' +',
-        '   -': ' -',
-        '"true"': 'true',
-        '"false"': 'false',
-        '"null"': 'null',
-    }
-    for key, value in replace.items():
-        result = result.replace(key, value)
-    return result
+    return map_stylish(result)

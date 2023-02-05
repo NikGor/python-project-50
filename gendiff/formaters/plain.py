@@ -1,4 +1,4 @@
-from gendiff.utils.mapping_utils import map_value
+from gendiff.utils.mapping_utils import map_plain
 
 
 def format_plain(diff, path=''):
@@ -6,10 +6,10 @@ def format_plain(diff, path=''):
         return ''
 
     def handle_different(key, value):
-        return f"Property '{key}' was updated. From {map_value(value['old'])} to {map_value(value['new'])}\n"
+        return f"Property '{key}' was updated. From {map_plain(value['old'])} to {map_plain(value['new'])}\n"
 
     def handle_added(key, value):
-        return f"Property '{key}' was added with value: {map_value(value['added'])}\n"
+        return f"Property '{key}' was added with value: {map_plain(value['added'])}\n"
 
     def handle_removed(key, value):
         return f"Property '{key}' was removed\n"

@@ -1,5 +1,5 @@
 from gendiff.utils.file_utils import get_file_extension, load_file, get_file_content
-from gendiff.utils.mapping_utils import map_value
+from gendiff.utils.mapping_utils import map_plain
 
 
 def test_get_file_extension():
@@ -15,7 +15,7 @@ def test_get_file_content():
 
 
 def test_map_value():
-    assert map_value({'key': 'value'}) == '[complex value]'
-    assert map_value(True) == 'true'
-    assert map_value('value') == "'value'"
-    assert map_value(1) == 1
+    assert map_plain({'key': 'value'}) == '[complex value]'
+    assert map_plain(True) == 'true'
+    assert map_plain('value') == "'value'"
+    assert map_plain(1) == 1
