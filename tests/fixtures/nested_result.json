@@ -5,8 +5,7 @@
                 "added": false
             },
             "setting1": {
-                "new": "Value 1",
-                "old": "Value 1"
+                "unchanged": "Value 1"
             },
             "setting2": {
                 "removed": 200
@@ -34,8 +33,7 @@
                         }
                     },
                     "key": {
-                        "new": "value",
-                        "old": "value"
+                        "unchanged": "value"
                     },
                     "ops": {
                         "added": "vops"
@@ -51,8 +49,7 @@
                 "old": "bas"
             },
             "foo": {
-                "new": "bar",
-                "old": "bar"
+                "unchanged": "bar"
             },
             "nest": {
                 "new": "str",

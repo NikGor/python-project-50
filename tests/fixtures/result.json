@@ -3,8 +3,7 @@
         "removed": false
     },
     "host": {
-        "new": "hexlet.io",
-        "old": "hexlet.io"
+        "unchanged": "hexlet.io"
     },
     "proxy": {
         "removed": "123.234.53.22"

@@ -4,8 +4,10 @@ def build_diff_tree(old_data, new_data):
         new_value = new_data[key]
         if isinstance(old_value, dict) and isinstance(new_value, dict):
             return {'nested': build_diff_tree(old_value, new_value)}
-        else:
+        elif old_value != new_value:
             return {'old': old_value, 'new': new_value}
+        else:
+            return {'unchanged': old_value}
 
     def handle_removed(key):
         return {'removed': old_data[key]}
