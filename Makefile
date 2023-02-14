@@ -27,4 +27,16 @@ draw:
 selfcheck:
 	poetry check
 
+amend-and-push:
+	git add .
+	git commit --amend --no-edit
+	git push --force
+
+dev:
+	poetry run flask --app gendiff:app run
+
+PORT ?= 8000
+start:
+	gunicorn -w 5 -b 0.0.0.0:$(PORT) gendiff:app
+
 ALL: lint install coverage-missing build package-install

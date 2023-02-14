@@ -1,0 +1,29 @@
+textarea {
+    resize: none;
+}
+
+code {
+    white-space: pre-wrap;
+}
+
+.btn-primary {
+    background-color: #ff6060;
+    border-color: #ff6060;
+    font-size: 22px;
+    padding: 12px 24px;
+}
+
+.btn-primary:hover {
+    background-color: #ef7070;
+    border-color: #ef7070;
+}
+
+.gradient {
+  background: linear-gradient(
+    to bottom,
+    #ff7f4f 49%,
+    #ff7539 49.9%,
+    #39424a 50.1%,
+    #2e353b 100%
+  );
+}

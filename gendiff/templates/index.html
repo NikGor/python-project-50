@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+    <title>GenDiff</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="static/app.css" rel="stylesheet">
+</head>
+<body class="gradient my-5">
+    <div class="container bg-white">
+        <header class="text-center py-3">
+            <h1 class="display-1 font-weight-bold border-bottom py-2">GenDiff</h1>
+            <p class="text-muted py-2">Get the difference between your files in just a few clicks<br>
+                Choose from plain, stylish, or json format to see the difference<br>
+                Supported file formats: .json, .yml
+            </p>
+        </header>
+        {% include "flash_error.html" %}
+
+        <div class="row m-1 p-1">
+            <span>
+                <h3 class="text-center">Enter your structures here:</h3>
+            </span>
+        </div>
+
+        <!-- поля ввода -->
+        <div class="row m-1 p-1">
+            <div class="col-md-6">
+                <textarea id="structure1" class="form-control bg-light text-dark" rows="10">
+                    {{ old_data }}
+                </textarea>
+            </div>
+            <div class="col-md-6">
+                <textarea id="structure2" class="form-control bg-dark text-light" rows="10">
+                    {{ new_data }}
+                </textarea>
+            </div>
+        </div>
+
+        <!-- поля загрузки файлов -->
+        <div class="row m-1 p-1">
+            <span>
+                <h3 class="text-center">Or upload your files:</h3>
+            </span>
+        </div>
+        <div class="row m-1 p-1">
+            <div class="col-md-6">
+                <input class="form-control" type="file" id="formFile1">
+            </div>
+            <div class="col-md-6">
+                <input class="form-control" type="file" id="formFile2">
+            </div>
+        </div>
+
+        <!-- выбор формата вывода -->
+        <div class="align-items-center px-3 m-1">
+          <div class="p-3">Choose the output format:</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="outputFormat" id="stylish" value="stylish" checked>
+            <label class="form-check-label" for="stylish">stylish</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="outputFormat" id="plain" value="plain">
+            <label class="form-check-label" for="plain">plain</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="outputFormat" id="json" value="json">
+            <label class="form-check-label" for="json">json</label>
+          </div>
+        </div>
+
+        <!-- кнопка сравнения -->
+        <div class="row py-3">
+            <div class="d-flex justify-content-center align-items-center col-md-12">
+                <button id="compareButton" class="btn btn-primary text-dark">
+                    Compare
+                </button>
+            </div>
+        </div>
+
+        <!-- результат -->
+        <div class="row p-3 m-3">
+            <!-- Изначально скрытый контейнер для результата -->
+            <div class="col-md-12 mb-3" style="display: none;" id="result-container">
+              <div id="result" class="border p-3" style="background-color: #b3e0ff; color: #212529;">
+                <pre id="result-pre">
+                  <!-- здесь будет результат -->
+                </pre>
+              </div>
+            </div>
+        </div>
+
+    </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+</body>
+</html>
